@@ -17,6 +17,7 @@ jobs:
         with:
           name: java-build
           path: downloaded-artifacts
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Show downloaded files
         run: ls -R downloaded-artifacts
