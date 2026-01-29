@@ -1,0 +1,22 @@
+name: Download Artifact Pipeline
+
+on:
+  workflow_run:
+    workflows: ["Build, Test & Store Artifact"]
+    types:
+      - completed
+
+jobs:
+  download:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: java-build
+          path: downloaded-artifacts
+
+      - name: Show downloaded files
+        run: ls -R downloaded-artifacts
