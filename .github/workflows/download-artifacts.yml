@@ -12,9 +12,12 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download artifact
-        uses: actions/checkout@v4
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
         with:
-            ref: artefacts-store
+          path: /public
 
-      - run: ls artifacts/
+      - name: Show artifact
+        run: |
+          cd /public
+          ls
