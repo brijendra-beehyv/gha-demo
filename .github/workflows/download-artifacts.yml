@@ -15,9 +15,7 @@ jobs:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
-          path: /public
+          run-id: ${{ github.event.workflow_run.id }}
 
       - name: Show artifact
-        run: |
-          cd /public
-          ls
+        run: ls -R
