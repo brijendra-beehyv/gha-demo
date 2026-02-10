@@ -36,17 +36,17 @@ jobs:
           name: java-build
           path: target/*.jar
 
-      - name: Push artifact to ${{ env.ARTIFACT_BRANCH }} branch
+      - name: Push artifact to ${{ vars.ARTIFACT_BRANCH }} branch
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           git fetch origin
-          git checkout -B ${{ env.ARTIFACT_BRANCH }}
+          git checkout -B ${{ vars.ARTIFACT_BRANCH }}
 
           mkdir -p artifacts
           cp target/*.jar artifacts/
 
           git add artifacts/
           git commit -m "Store build artifact"
-          git push origin ${{ env.ARTIFACT_BRANCH }} --force
+          git push origin ${{ vars.ARTIFACT_BRANCH }} --force
