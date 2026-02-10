@@ -9,6 +9,9 @@ on:
   pull_request:
     branches: ["main"]
 
+env:
+  ARTIFACT_BRANCH: artifacts-store
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -36,17 +39,17 @@ jobs:
           name: java-build
           path: target/*.jar
 
-      - name: Push artifact to artefacts-store branch
+      - name: Push artifact to ${{ env.ARTIFACT_BRANCH }} branch
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
           git fetch origin
-          git checkout -B artefacts-store
+          git checkout -B ${{ env.ARTIFACT_BRANCH }}
 
           mkdir -p artifacts
           cp target/*.jar artifacts/
 
           git add artifacts/
           git commit -m "Store build artifact"
-          git push origin artefacts-store --force
+          git push origin ${{ env.ARTIFACT_BRANCH }} --force
