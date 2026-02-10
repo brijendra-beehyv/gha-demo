@@ -9,9 +9,6 @@ on:
   pull_request:
     branches: ["main"]
 
-env:
-  ARTIFACT_BRANCH: artifacts-store
-
 jobs:
   build:
     runs-on: ubuntu-latest
